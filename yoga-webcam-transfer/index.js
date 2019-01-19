@@ -128,6 +128,8 @@ async function train() {
 let isPredicting = false;
 
 async function predict() {
+  // runs when you click play
+
   ui.isPredicting();
   while (isPredicting) {
     const predictedClass = tf.tidy(() => {
@@ -164,7 +166,7 @@ document.getElementById('train').addEventListener('click', async () => {
   train();
 });
 document.getElementById('predict').addEventListener('click', () => {
-  ui.startPacman();
+  // ui.startPacman();
   isPredicting = true;
   predict();
 });

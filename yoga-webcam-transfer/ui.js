@@ -40,11 +40,12 @@ export const setTimer = (time) => {document.getElementById("timer").innerHTML = 
 export const getDummyFirstPose = () => 0
 
 var myInterval
+var __startTimestamp
 export function startTimer() {
-  var startTimestamp = moment().startOf("day");
+  __startTimestamp = moment().startOf("day");
   myInterval = setInterval(function () {
-      setTimer(startTimestamp.format('mm:ss'));
-      startTimestamp.add(1, 'second');
+      setTimer(__startTimestamp.format('mm:ss'));
+      __startTimestamp.add(1, 'second');
   }, 1000);
 }
 
@@ -73,7 +74,9 @@ export function predictClass(classId) {
     resetTimer()
   }
   else if (pose != pose_update) {
+    completed_poses.push({pose: pose, duration: __startTimestamp.format('mm:ss')})
     resetTimer()
+    console.log(completed_poses)
   }
   pose = pose_update
   document.body.setAttribute('data-active', CONTROLS[pose]);
@@ -92,6 +95,10 @@ function argMax(array) {
 
 const _NUMBER_PREDICTIONS_SAVED = 20
 const _NUMBER_OF_POSES = 4
+const __PREDICT_THRESHOLD = 0.7 // Treshold between 0.0 and 1 for predicting a pose. If
+// in the _NUMBER_PREDICTIONS_SAVED last frames, more than threshold of the frames was classified
+// as a certain pose. That pose is assumed to be the curren pose. If no pose reaches the threshold
+// the pose is undefined. Tune this parameter to make the model more or less uncertain.
 let last_N_predictions = []
 
 function processPredictions(classId) {
@@ -111,13 +118,14 @@ function processPredictions(classId) {
   for (let i = 0; i < counts.length; i++) {
     counts[i] = counts[i] / total_count
   }
-
-  
   let current_pose = argMax(counts) // Just selects the pose which has been predicted most in last
   // _NUMBER_PREDICTIONS_SAVED frames.
 
-  if (last_N_predictions.length > _NUMBER_PREDICTIONS_SAVED / 4) {
-    // To only start a pose when a certain amount of time has passed:
+  // To only start a pose when a certain amount of time has passed. And making 
+  // sure that the the threshold is met. 
+  console.log(counts)
+  if (last_N_predictions.length > _NUMBER_PREDICTIONS_SAVED / 2 
+      && counts[current_pose] > __PREDICT_THRESHOLD) {
     return current_pose
   }
   else {

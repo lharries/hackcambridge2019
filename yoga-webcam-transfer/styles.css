@@ -52,6 +52,7 @@ header b {
 .luke-container {
   display: flex;
   justify-content: center;
+  text-align: center;
 }
 
 .luke-panel {
@@ -118,6 +119,7 @@ header b {
   display: flex;
   flex-direction: column;
   margin: 9px 0 0;
+  width: 500px;
 }
 .panel {
   box-sizing: border-box;
@@ -166,22 +168,19 @@ header b {
   margin: 0;
   padding: 0;
 }
-#train-status {
-  width: 124px;
-}
 
 /** Training panel. **/
 .big-buttons {
-  justify-content: space-between;
+  justify-content: center;
 }
 .big-buttons button {
   align-items: center;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
+  background: none;
+  border: none;
 }
 .big-buttons button span {
-  border-bottom: 2px solid #484848;
-  border-top: 2px solid #484848;
   color: #000000;
   display: inline-block;
   font-size: 18px;

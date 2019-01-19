@@ -45,22 +45,23 @@ limitations under the License.
 <div id="status">Loading your personal yoga instructor...</div>
 
 <div class="luke-container">
-    <div class="luke-panel">Left panel</div>
+    <div class="luke-panel">
+        <!-- Big buttons. -->
+        <h3>Controls</h3>
+        <div class="panel-row big-buttons">
+            <button id="train">
+                <img width="66" height="66" src="./images/button.svg"/>
+                <span id="train-status">TRAIN</span>
+            </button>
+            <button id="predict">
+                <img width="66" height="66" src="./images/button.svg"/>
+                <span>PLAY</span>
+            </button>
+        </div><!-- /.panel-row -->
+    </div>
     <div class="controller-panels" id="controller" style="display:none">
 
         <div class="panel training-panel">
-
-            <!-- Big buttons. -->
-            <div class="panel-row big-buttons">
-                <button id="train">
-                    <img width="66" height="66" src="./images/button.svg"/>
-                    <span id="train-status">TRAIN MODEL</span>
-                </button>
-                <button id="predict">
-                    <img width="66" height="66" src="./images/button.svg"/>
-                    <span>PLAY</span>
-                </button>
-            </div><!-- /.panel-row -->
 
             <div class="panel-row params-webcam-row">
 
@@ -214,7 +215,7 @@ limitations under the License.
         </div><!-- /.panel -->
 
     </div><!-- /#controller -->
-    <div class="luke-panel" style="text-align: center">
+    <div class="luke-panel">
         <h3>
             Completed Poses
         </h3>

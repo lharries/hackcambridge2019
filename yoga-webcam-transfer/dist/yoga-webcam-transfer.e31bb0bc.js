@@ -56453,31 +56453,26 @@ function init() {
 
 var trainStatusElement = document.getElementById('train-status'); // Set hyper params from UI values.
 
-var learningRateElement = document.getElementById('learningRate');
-
 var getLearningRate = function getLearningRate() {
-  return +learningRateElement.value;
+  return 0.0001;
 };
 
 exports.getLearningRate = getLearningRate;
-var batchSizeFractionElement = document.getElementById('batchSizeFraction');
 
 var getBatchSizeFraction = function getBatchSizeFraction() {
-  return +batchSizeFractionElement.value;
+  return 0.4;
 };
 
 exports.getBatchSizeFraction = getBatchSizeFraction;
-var epochsElement = document.getElementById('epochs');
 
 var getEpochs = function getEpochs() {
-  return +epochsElement.value;
+  return 20;
 };
 
 exports.getEpochs = getEpochs;
-var denseUnitsElement = document.getElementById('dense-units');
 
 var getDenseUnits = function getDenseUnits() {
-  return +denseUnitsElement.value;
+  return 100;
 };
 
 exports.getDenseUnits = getDenseUnits;

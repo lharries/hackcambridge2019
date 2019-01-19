@@ -179,17 +179,25 @@ function modeChange() {
   mode = document.getElementById("mode").value;
   console.log(mode);
   if (mode =='custom') {
+    ui.clearThumb(0);
+    ui.clearThumb(1);
+    ui.clearThumb(2);
+    ui.clearThumb(3);
     document.querySelectorAll('.custommode').forEach(element => element.style.display = "unset");
     document.querySelectorAll('.instructor').forEach(element => element.style.display = "none");
   } else {
     var image = new Image();
-    // ui.drawThumb("Collage_of_Nine_Dogs.jpg", 0, true);
-    ui.drawThumb("Collage_of_Nine_Dogs.jpg", 2, true);
-    // ui.drawThumb("Collage_of_Nine_Dogs.jpg", 3, true);
-    // ui.drawThumb("Collage_of_Nine_Dogs.jpg", 1, true);
+    setupImages()
     document.querySelectorAll('.custommode').forEach(element => element.style.display = "none");
     document.querySelectorAll('.instructor').forEach(element => element.style.display = "unset");
   }
+}
+
+function setupImages() {
+  ui.drawThumb("crescent_lunge.jpg", 0, true);
+  ui.drawThumb("triangle_pose.jpg", 2, true);
+  ui.drawThumb("warrior_two.jpg", 3, true);
+  ui.drawThumb("warrior_three.jpg", 1, true);
 }
 
 async function init() {
@@ -204,6 +212,8 @@ async function init() {
   // programs so the first time we collect data from the webcam it will be
   // quick.
   tf.tidy(() => truncatedMobileNet.predict(webcam.capture()));
+
+  setupImages();
 
   ui.init();
 }

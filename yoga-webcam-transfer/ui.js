@@ -236,9 +236,16 @@ export function draw(image, canvas) {
   ctx.putImageData(imageData, 0, 0);
 }
 
+export function clearThumb(label) {
+  const thumbCanvas = document.getElementById(CONTROLS[label] + '-thumb');
+  const context = thumbCanvas.getContext('2d');
+  context.clearRect(0, 0, thumbCanvas.width, thumbCanvas.height);
+}
+
 function copyCanvas(img, canvas) {
   var ctx = canvas.getContext('2d');
-  ctx.drawImage(img, 0, 0);
+  ctx.drawImage(img, 0, 0, img.width,    img.height,     // source rectangle
+      0, 0, canvas.width, canvas.height);
 }
 //
 function loadImage(url, canvas) {

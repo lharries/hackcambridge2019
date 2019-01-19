@@ -279,7 +279,10 @@ header b {
 /** Joystick panel. **/
 .joystick-panel {
   margin-top: 13px;
+  margin-left: auto;
+  margin-right: auto;
   flex-direction: row;
+  justify-content: center;
 }
 .panel-cell .help-text {
   font-size: 10px;
@@ -327,10 +330,10 @@ header b {
   display: flex;
   justify-content: center;
   overflow: hidden;
-  width: 66px;
+  width: 150px;
 }
 .thumb {
-  height: 66px;
+  height: 150px;
   transform: scaleX(-1);
 }
 .thumb-box-outer .record-button {

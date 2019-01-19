@@ -98,7 +98,7 @@ header b {
 /** Controls. **/
 .controller-panels {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   margin: 9px auto 0;
 }
 .panel {
@@ -109,7 +109,6 @@ header b {
   flex-shrink: 0;
 }
 .panel:first-child {
-  border-right: 1px dashed #565656;
   padding: 0 22px 0 13px;
   width: 396px;
 }
@@ -128,6 +127,7 @@ header b {
   flex-grow: 0;
   justify-content: center;
   position: relative;
+  /*margin-i0nside: 5px;*/
 }
 .panel-cell-fill {
   flex-grow: 1;
@@ -257,6 +257,7 @@ header b {
 /** Joystick panel. **/
 .joystick-panel {
   margin-top: 13px;
+  flex-direction: row;
 }
 .panel-cell .help-text {
   font-size: 10px;
@@ -275,14 +276,11 @@ header b {
   background-size: 38%;
   background-position: 98% 46%;
 }
-.panel-row-middle .panel-cell {
-  height: 132px;
-}
+
 .thumb-box {
   display: inline-block;
 }
 .panel-row-middle .thumb-box {
-  margin-top: 18px;
 }
 .thumb-box-outer {
   background: black;

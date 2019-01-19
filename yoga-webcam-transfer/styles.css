@@ -16,7 +16,7 @@
  */
 
 html, body {
-  background: #2a2a2a;
+  background: #e0e0e0;
   font-family: 'Roboto', sans-serif;
   margin: 0;
   padding: 0;
@@ -51,7 +51,7 @@ header b {
 
 /** Loading message. */
 #status {
-  color: #f8f8f8;
+  color: #000000;
   font-weight: 300;
   margin: 12px 0;
   text-align: center;
@@ -98,7 +98,7 @@ header b {
 /** Controls. **/
 .controller-panels {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   margin: 9px auto 0;
 }
 .panel {
@@ -109,7 +109,6 @@ header b {
   flex-shrink: 0;
 }
 .panel:first-child {
-  border-right: 1px dashed #565656;
   padding: 0 22px 0 13px;
   width: 396px;
 }
@@ -128,6 +127,7 @@ header b {
   flex-grow: 0;
   justify-content: center;
   position: relative;
+  /*margin-i0nside: 5px;*/
 }
 .panel-cell-fill {
   flex-grow: 1;
@@ -163,7 +163,7 @@ header b {
 .big-buttons button span {
   border-bottom: 2px solid #484848;
   border-top: 2px solid #484848;
-  color: #aaa;
+  color: #000000;
   display: inline-block;
   font-size: 18px;
   font-weight: 500;
@@ -194,11 +194,11 @@ header b {
   display: flex;
   justify-content: center;
   overflow: hidden;
-  width: 160px;
+  width: 320px;
 }
 #webcam {
-  height: 160px;
-  transform: scaleX(-1);
+  height: 320px;
+  transform: scale(-1.5, 1.5);
 }
 .hyper-params {
   display: flex;
@@ -257,6 +257,7 @@ header b {
 /** Joystick panel. **/
 .joystick-panel {
   margin-top: 13px;
+  flex-direction: row;
 }
 .panel-cell .help-text {
   font-size: 10px;
@@ -275,14 +276,11 @@ header b {
   background-size: 38%;
   background-position: 98% 46%;
 }
-.panel-row-middle .panel-cell {
-  height: 132px;
-}
+
 .thumb-box {
   display: inline-block;
 }
 .panel-row-middle .thumb-box {
-  margin-top: 18px;
 }
 .thumb-box-outer {
   background: black;

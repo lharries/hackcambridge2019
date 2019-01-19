@@ -27,20 +27,18 @@ export function init() {
 const trainStatusElement = document.getElementById('train-status');
 
 // Set hyper params from UI values.
-const learningRateElement = document.getElementById('learningRate');
-export const getLearningRate = () => +learningRateElement.value;
 
-const batchSizeFractionElement = document.getElementById('batchSizeFraction');
-export const getBatchSizeFraction = () => +batchSizeFractionElement.value;
+export const getLearningRate = () => 0.0001;
 
-const epochsElement = document.getElementById('epochs');
-export const getEpochs = () => +epochsElement.value;
+export const getBatchSizeFraction = () => 0.4;
 
-const denseUnitsElement = document.getElementById('dense-units');
-export const getDenseUnits = () => +denseUnitsElement.value;
+export const getEpochs = () => 20;
+
+export const getDenseUnits = () => 100;
 const statusElement = document.getElementById('status');
 
 export function startPacman() {
+  console.log("Starting demo");
   // google.pacman.startGameplay();
 }
 

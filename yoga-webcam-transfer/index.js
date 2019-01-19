@@ -128,6 +128,8 @@ async function train() {
 let isPredicting = false;
 
 async function predict() {
+  // runs when you click play
+
   ui.isPredicting();
   while (isPredicting) {
     const predictedClass = tf.tidy(() => {

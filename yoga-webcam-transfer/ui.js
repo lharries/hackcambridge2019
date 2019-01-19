@@ -45,6 +45,7 @@ export function startPacman() {
 export function predictClass(classId) {
   console.log(CONTROL_CODES[classId]) // Sjoerd
   // google.pacman.keyPressed(CONTROL_CODES[classId]);
+
   document.body.setAttribute('data-active', CONTROLS[classId]);
 }
 

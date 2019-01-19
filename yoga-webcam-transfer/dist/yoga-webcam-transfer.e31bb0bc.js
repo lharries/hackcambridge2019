@@ -57012,6 +57012,7 @@ function _predict() {
       while (1) {
         switch (_context5.prev = _context5.next) {
           case 0:
+            // runs when you click play
             ui.isPredicting();
 
           case 1:

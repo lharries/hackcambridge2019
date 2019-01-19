@@ -56483,7 +56483,8 @@ var getDenseUnits = function getDenseUnits() {
 exports.getDenseUnits = getDenseUnits;
 var statusElement = document.getElementById('status');
 
-function startPacman() {// google.pacman.startGameplay();
+function startPacman() {
+  console.log("Starting demo"); // google.pacman.startGameplay();
 }
 
 function predictClass(classId) {

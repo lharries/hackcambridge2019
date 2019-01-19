@@ -41,6 +41,7 @@ export const getDenseUnits = () => +denseUnitsElement.value;
 const statusElement = document.getElementById('status');
 
 export function startPacman() {
+  console.log("Starting demo");
   // google.pacman.startGameplay();
 }
 

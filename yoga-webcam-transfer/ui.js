@@ -45,10 +45,59 @@ export function startPacman() {
 }
 
 export function predictClass(classId) {
+  // classId's are 0,1,2,3
   console.log(CONTROL_CODES[classId]) // Sjoerd
+  console.log(classId)
+  console.log("Class id ", classId)
   // google.pacman.keyPressed(CONTROL_CODES[classId]);
-  document.body.setAttribute('data-active', CONTROLS[classId]);
+
+  // current pose is computed by smoothing past predictions.
+  let pose = processPredictions(classId)
+  document.body.setAttribute('data-active', CONTROLS[pose]);
 }
+
+let poses_enum = {
+  "UP":0,
+  "DOWN":1,
+  "LEFT":2,
+  "RIGHT":3
+}
+
+function argMax(array) {
+  return array.map((x, i) => [x, i]).reduce((r, a) => (a[0] > r[0] ? a : r))[1];
+}
+
+const _NUMBER_PREDICTIONS_SAVED = 20
+const _NUMBER_OF_POSES = 4
+let last_N_predictions = []
+
+function processPredictions(classId) {
+  if (last_N_predictions.length < _NUMBER_PREDICTIONS_SAVED) {
+    last_N_predictions.push(classId)
+  }
+  else {
+    last_N_predictions = last_N_predictions.slice(1, last_N_predictions.length)
+    last_N_predictions.push(classId)
+  }
+  let counts = new Array(_NUMBER_OF_POSES).fill(0); // array of counts, indexes correspond to classes
+  last_N_predictions.forEach((class_ID)=>{
+    counts[class_ID] += 1
+  })
+  let total_count = counts.reduce(function (accumulator, currentValue) {
+    return accumulator + currentValue}, 0);
+  for (let i = 0; i < counts.length; i++) {
+    counts[i] = counts[i] / total_count
+  }
+  console.log(last_N_predictions)
+  console.log(counts)
+  let current_pose = argMax(counts) // Just selects the pose which has been predicted most in last
+  // _NUMBER_PREDICTIONS_SAVED frames.
+  console.log("CURRENT POSE")
+  console.log(current_pose)
+  console.log(".........")
+  return current_pose
+}
+
 
 export function isPredicting() {
   statusElement.style.visibility = 'visible';

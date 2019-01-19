@@ -72,14 +72,22 @@ function resetTimer() {
  * @param {*} pose     String representing the pose
  * @param {*} duration String representing duration in minute: seconds format
  */
-function addRowResultsTable(pose, duration) {
-  var table = document.getElementById("results_table");
+export function addRowResultsTable(pose, duration, instructor = false) {
+  if (instructor) {
+    var table = document.getElementById("workout_table");
+  } else {
+    var table = document.getElementById("results_table");
+  }
   // Create an empty <tr> element and add it to the 1st position of the table:
   var row = table.insertRow(-1);
 
   // Insert new cells (<td> elements) at the 1st and 2nd position of the "new" <tr> element:
   var cell1 = row.insertCell(0);
-  cell1.innerHTML = [1,4,2,3][pose];
+  if (instructor) {
+    cell1.innerHTML = pose;
+  } else {
+    cell1.innerHTML = [1,4,2,3][pose];
+  }
   var cell2 = row.insertCell(1);
   cell2.innerHTML = duration
 }

@@ -75,13 +75,13 @@ const audioButton = document.getElementById('audioButton');
 const thumbDisplayed = {};
 
 async function audioInstructions() {
-    await speak('Welcome to Namestay.');
+  await speak('Welcome to Namestay.');
   await speak('This is freestyle mode. We will now setup your poses');
   await speak('Please choose a pose for pose 1.');
-    await sleep(2);
-    await speak("We will record the pose 1 in 3.");
-    await sleep(1);
-    await speak("2");
+  await sleep(2);
+  await speak("We will record the pose 1 in 3.");
+  await sleep(1);
+  await speak("2");
   await sleep(1);
   await speak("1");
   await sleep(1);

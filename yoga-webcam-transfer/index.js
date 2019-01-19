@@ -128,7 +128,7 @@ async function train() {
 let isPredicting = false;
 
 async function predict() {
-  // runs when you click play
+  // runs when you click play§
 
   ui.isPredicting();
   while (isPredicting) {
@@ -170,6 +170,27 @@ document.getElementById('predict').addEventListener('click', () => {
   isPredicting = true;
   predict();
 });
+let mode = "instructor";
+
+
+document.getElementById("mode").addEventListener("change", () =>modeChange());
+
+function modeChange() {
+  mode = document.getElementById("mode").value;
+  console.log(mode);
+  if (mode =='custom') {
+    document.querySelectorAll('.custommode').forEach(element => element.style.display = "unset");
+    document.querySelectorAll('.instructor').forEach(element => element.style.display = "none");
+  } else {
+    var image = new Image();
+    // ui.drawThumb("Collage_of_Nine_Dogs.jpg", 0, true);
+    ui.drawThumb("Collage_of_Nine_Dogs.jpg", 2, true);
+    // ui.drawThumb("Collage_of_Nine_Dogs.jpg", 3, true);
+    // ui.drawThumb("Collage_of_Nine_Dogs.jpg", 1, true);
+    document.querySelectorAll('.custommode').forEach(element => element.style.display = "none");
+    document.querySelectorAll('.instructor').forEach(element => element.style.display = "unset");
+  }
+}
 
 async function init() {
   try {

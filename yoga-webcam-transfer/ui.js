@@ -68,7 +68,7 @@ function resetTimer() {
 }
 
 /**
- * 
+ *
  * @param {*} pose     String representing the pose
  * @param {*} duration String representing duration in minute: seconds format
  */
@@ -147,8 +147,8 @@ function processPredictions(classId) {
   let current_pose = argMax(counts) // Just selects the pose which has been predicted most in last
   // _NUMBER_PREDICTIONS_SAVED frames.
 
-  // To only start a pose when a certain amount of time has passed. And making 
-  // sure that the the threshold is met. 
+  // To only start a pose when a certain amount of time has passed. And making
+  // sure that the the threshold is met.
   if (last_N_predictions.length > _NUMBER_PREDICTIONS_SAVED / 2
       && counts[current_pose] > _PREDICT_THRESHOLD) {
     return current_pose
@@ -209,10 +209,15 @@ leftButton.addEventListener('mouseup', () => mouseDown = false);
 rightButton.addEventListener('mousedown', () => handler(3));
 rightButton.addEventListener('mouseup', () => mouseDown = false);
 
-export function drawThumb(img, label) {
+export function drawThumb(img, label, instructor=false) {
   if (thumbDisplayed[label] == null) {
     const thumbCanvas = document.getElementById(CONTROLS[label] + '-thumb');
-    draw(img, thumbCanvas);
+    if (!instructor) {
+      draw(img, thumbCanvas);
+    } else {
+      loadImage(img, thumbCanvas)
+
+    }
   }
 }
 
@@ -229,4 +234,17 @@ export function draw(image, canvas) {
     imageData.data[j + 3] = 255;
   }
   ctx.putImageData(imageData, 0, 0);
+}
+
+function copyCanvas(img, canvas) {
+  var ctx = canvas.getContext('2d');
+  ctx.drawImage(img, 0, 0);
+}
+//
+function loadImage(url, canvas) {
+  var img = new Image();
+  img.onload = function () {
+    copyCanvas(img, canvas);
+  };
+  img.src = url
 }

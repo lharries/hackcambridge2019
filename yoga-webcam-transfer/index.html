@@ -42,13 +42,20 @@ limitations under the License.
 <!--</div>-->
 <!--</div>-->
 
-<div id="status">Loading your physio...</div>
+<h4 id="status">Loading...</h4>
 
-<div class="luke-container">
+<div class="luke-container" id="controller" style="display:none">
     <div class="luke-panel">
         <!-- Big buttons. -->
+        <select id="mode">
+            <option selected value="instructor">Instructor</option>
+            <option value="custom">Custom</option>
+        </select>
+        <div class="instructor">
         <h3>Points</h3>
         <h4 id="points">0</h4>
+
+        </div>
         <h3>Time</h3>
         <h4 id="timer">00:00</h4>
         <h3>Controls</h3>
@@ -63,7 +70,7 @@ limitations under the License.
             </button>
         </div><!-- /.panel-row -->
     </div>
-    <div class="controller-panels" id="controller" style="display:none">
+    <div class="controller-panels">
 
         <div class="panel training-panel">
 
@@ -220,15 +227,28 @@ limitations under the License.
 
     </div><!-- /#controller -->
     <div class="luke-panel">
-        <h3>
-            Completed Poses
-        </h3>
-        <table class="results" id="results_table">
-            <tr style="text-align: left;">
-                <th style="width: 70%">Pose</th>
-                <th>Times (s)</th>
-            </tr>
-        </table>
+        <div class="instructor">
+            <h3>
+                Workout
+            </h3>
+            <table class="results" id="workout_table">
+                <tr style="text-align: left;">
+                    <th style="width: 70%">Pose</th>
+                    <th>Times (s)</th>
+                </tr>
+            </table>
+        </div>
+        <div class="custommode">
+            <h3>
+                Completed Poses
+            </h3>
+            <table class="results" id="results_table">
+                <tr style="text-align: left;">
+                    <th style="width: 70%">Pose</th>
+                    <th>Times (s)</th>
+                </tr>
+            </table>
+        </div>
     </div>
 </div>
 <!--<script src="https://storage.googleapis.com/tfjs-examples/assets/webcam-transfer-learning/pacman-google.js"></script>-->

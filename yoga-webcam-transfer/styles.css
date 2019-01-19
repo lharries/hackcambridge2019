@@ -49,6 +49,10 @@ header b {
   font-weight: 400;
 }
 
+.custommode {
+  display: none;
+}
+
 .luke-container {
   display: flex;
   justify-content: center;

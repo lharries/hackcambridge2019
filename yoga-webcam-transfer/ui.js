@@ -79,7 +79,8 @@ function addRowResultsTable(pose, duration) {
 
   // Insert new cells (<td> elements) at the 1st and 2nd position of the "new" <tr> element:
   var cell1 = row.insertCell(0);
-  cell1.innerHTML = pose
+  console.log("pose",pose)
+  cell1.innerHTML = [1,4,2,3][pose];
   var cell2 = row.insertCell(1);
   cell2.innerHTML = duration
 }

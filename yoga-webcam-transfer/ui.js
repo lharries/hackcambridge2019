@@ -77,15 +77,15 @@ const thumbDisplayed = {};
 async function audioInstructions() {
   await speak('Welcome to Namestay.');
   await speak('This is freestyle mode. We will now setup your poses');
-  await speak('Please choose a pose for pose 1.');
+  await speak('Please choose a pose');
   await sleep(2);
-  await speak("We will record the pose 1 in 3.");
+  await speak("We will record the pose in 3 seconds");
   await sleep(1);
   await speak("2");
   await sleep(1);
   await speak("1");
   await sleep(1);
-  await speak("Recording for 2 seconds");
+  await speak("Recording...");
   //record
   console.log("recording")
 
@@ -94,14 +94,15 @@ async function audioInstructions() {
 
 async function speak(text) {
   const msg = new SpeechSynthesisUtterance(text);
-  window.speechSynthesis.speak(msg);
-  text = text.replace("Namestay","Namast.ai");
-  document.getElementById("instructions").innerHTML=text;
+
   return new Promise(resolve => {
     msg.onend = () => {
       console.log("resolving");
         return resolve()
     }
+    window.speechSynthesis.speak(msg);
+    text = text.replace("Namestay","Namast.ai");
+    document.getElementById("instructions").innerHTML=text;
   })
 }
 

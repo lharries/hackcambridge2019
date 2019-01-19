@@ -17,8 +17,20 @@
 import * as tf from '@tensorflow/tfjs';
 import moment from 'moment'
 
+// // FIXME: Get the CSS elements and the control configured such that the array
+// // below actually
+// const CONTROLS = ['Pose 1', 'Pose 4', 'Pose 2', 'Pose 3'];
 const CONTROLS = ['up', 'down', 'left', 'right'];
 const CONTROL_CODES = [38, 40, 37, 39];
+
+const _NUMBER_PREDICTIONS_SAVED = 20
+const _NUMBER_OF_POSES = 4
+const _PREDICT_THRESHOLD = 0.7 // Treshold between 0.0 and 1 for predicting a pose. If
+// in the _NUMBER_PREDICTIONS_SAVED last frames, more than threshold of the frames was classified
+// as a certain pose. That pose is assumed to be the curren pose. If no pose reaches the threshold
+// the pose is undefined. Tune this parameter to make the model more or less uncertain.
+const _MINIMUM_SECONDS_POSEHOLD = 3 // The minimum number a pose needs to be hold before it 
+//is added to the result list. 
 
 export function init() {
   document.getElementById('controller').style.display = '';
@@ -55,6 +67,23 @@ function resetTimer() {
   startTimer()
 }
 
+/**
+ * 
+ * @param {*} pose     String representing the pose
+ * @param {*} duration String representing duration in minute: seconds format
+ */
+function addRowResultsTable(pose, duration) {
+  var table = document.getElementById("results_table");
+  // Create an empty <tr> element and add it to the 1st position of the table:
+  var row = table.insertRow(-1);
+
+  // Insert new cells (<td> elements) at the 1st and 2nd position of the "new" <tr> element:
+  var cell1 = row.insertCell(0);
+  cell1.innerHTML = pose
+  var cell2 = row.insertCell(1);
+  cell2.innerHTML = duration
+}
+
 export const getDenseUnits = () => 100;
 const statusElement = document.getElementById('status');
 
@@ -74,7 +103,12 @@ export function predictClass(classId) {
     resetTimer()
   }
   else if (pose != pose_update) {
-    completed_poses.push({pose: pose, duration: __startTimestamp.format('mm:ss')})
+    let duration = __startTimestamp.format('mm:ss')
+    completed_poses.push({pose: pose, duration: duration })
+    if (Number(duration.split(":")[0]) != 0
+        || Number(duration.split(":")[1]) > _MINIMUM_SECONDS_POSEHOLD) {
+          addRowResultsTable(pose, duration)
+        }
     resetTimer()
     console.log(completed_poses)
   }
@@ -93,12 +127,6 @@ function argMax(array) {
   return array.map((x, i) => [x, i]).reduce((r, a) => (a[0] > r[0] ? a : r))[1];
 }
 
-const _NUMBER_PREDICTIONS_SAVED = 20
-const _NUMBER_OF_POSES = 4
-const __PREDICT_THRESHOLD = 0.7 // Treshold between 0.0 and 1 for predicting a pose. If
-// in the _NUMBER_PREDICTIONS_SAVED last frames, more than threshold of the frames was classified
-// as a certain pose. That pose is assumed to be the curren pose. If no pose reaches the threshold
-// the pose is undefined. Tune this parameter to make the model more or less uncertain.
 let last_N_predictions = []
 
 function processPredictions(classId) {
@@ -125,7 +153,7 @@ function processPredictions(classId) {
   // sure that the the threshold is met. 
   console.log(counts)
   if (last_N_predictions.length > _NUMBER_PREDICTIONS_SAVED / 2 
-      && counts[current_pose] > __PREDICT_THRESHOLD) {
+      && counts[current_pose] > _PREDICT_THRESHOLD) {
     return current_pose
   }
   else {

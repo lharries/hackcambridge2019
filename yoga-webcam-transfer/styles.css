@@ -49,6 +49,25 @@ header b {
   font-weight: 400;
 }
 
+.luke-container {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+}
+
+.luke-panel {
+  margin-top: 20px;
+  width: 500px;
+}
+
+.results {
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 13px 27px -5px rgba(50,50,93,.25), 0 8px 16px -8px rgba(0,0,0,.3);
+  margin: auto;
+}
+
 /** Loading message. */
 #status {
   color: #000000;
@@ -99,7 +118,8 @@ header b {
 .controller-panels {
   display: flex;
   flex-direction: column;
-  margin: 9px auto 0;
+  margin: 9px 0 0;
+  width: 500px;
 }
 .panel {
   box-sizing: border-box;
@@ -110,7 +130,7 @@ header b {
 }
 .panel:first-child {
   padding: 0 22px 0 13px;
-  width: 396px;
+  width: 500px;
 }
 .panel:last-child {
   padding: 0 9px 0 22px;
@@ -127,6 +147,7 @@ header b {
   flex-grow: 0;
   justify-content: center;
   position: relative;
+  margin-left: 19px;
   /*margin-i0nside: 5px;*/
 }
 .panel-cell-fill {
@@ -147,22 +168,19 @@ header b {
   margin: 0;
   padding: 0;
 }
-#train-status {
-  width: 124px;
-}
 
 /** Training panel. **/
 .big-buttons {
-  justify-content: space-between;
+  justify-content: center;
 }
 .big-buttons button {
   align-items: center;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
+  background: none;
+  border: none;
 }
 .big-buttons button span {
-  border-bottom: 2px solid #484848;
-  border-top: 2px solid #484848;
   color: #000000;
   display: inline-block;
   font-size: 18px;
@@ -194,11 +212,11 @@ header b {
   display: flex;
   justify-content: center;
   overflow: hidden;
-  width: 320px;
+  width: 430px;
 }
 #webcam {
-  height: 320px;
-  transform: scale(-1.5, 1.5);
+  height: 430px;
+  transform: scale(-2, 2);
 }
 .hyper-params {
   display: flex;

@@ -79,7 +79,6 @@ function addRowResultsTable(pose, duration) {
 
   // Insert new cells (<td> elements) at the 1st and 2nd position of the "new" <tr> element:
   var cell1 = row.insertCell(0);
-  console.log("pose",pose)
   cell1.innerHTML = [1,4,2,3][pose];
   var cell2 = row.insertCell(1);
   cell2.innerHTML = duration
@@ -89,7 +88,6 @@ export const getDenseUnits = () => 100;
 const statusElement = document.getElementById('status');
 
 export function startPacman() {
-  console.log("Starting demo");
   // google.pacman.startGameplay();
 }
 let pose = undefined
@@ -111,7 +109,6 @@ export function predictClass(classId) {
           addRowResultsTable(pose, duration)
         }
     resetTimer()
-    console.log(completed_poses)
   }
   pose = pose_update
   document.body.setAttribute('data-active', CONTROLS[pose]);
@@ -152,8 +149,7 @@ function processPredictions(classId) {
 
   // To only start a pose when a certain amount of time has passed. And making 
   // sure that the the threshold is met. 
-  console.log(counts)
-  if (last_N_predictions.length > _NUMBER_PREDICTIONS_SAVED / 2 
+  if (last_N_predictions.length > _NUMBER_PREDICTIONS_SAVED / 2
       && counts[current_pose] > _PREDICT_THRESHOLD) {
     return current_pose
   }

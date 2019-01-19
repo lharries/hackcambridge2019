@@ -51,7 +51,7 @@ header b {
 
 /** Loading message. */
 #status {
-  color: #f8f8f8;
+  color: #000000;
   font-weight: 300;
   margin: 12px 0;
   text-align: center;
@@ -163,7 +163,7 @@ header b {
 .big-buttons button span {
   border-bottom: 2px solid #484848;
   border-top: 2px solid #484848;
-  color: #aaa;
+  color: #000000;
   display: inline-block;
   font-size: 18px;
   font-weight: 500;

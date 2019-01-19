@@ -56483,12 +56483,13 @@ var getDenseUnits = function getDenseUnits() {
 exports.getDenseUnits = getDenseUnits;
 var statusElement = document.getElementById('status');
 
-function startPacman() {
-  google.pacman.startGameplay();
+function startPacman() {// google.pacman.startGameplay();
 }
 
 function predictClass(classId) {
-  google.pacman.keyPressed(CONTROL_CODES[classId]);
+  console.log(CONTROL_CODES[classId]); // Sjoerd
+  // google.pacman.keyPressed(CONTROL_CODES[classId]);
+
   document.body.setAttribute('data-active', CONTROLS[classId]);
 }
 
@@ -57092,7 +57093,7 @@ _regenerator.default.mark(function _callee() {
   }, _callee, this);
 })));
 document.getElementById('predict').addEventListener('click', function () {
-  ui.startPacman();
+  // ui.startPacman();
   isPredicting = true;
   predict();
 });

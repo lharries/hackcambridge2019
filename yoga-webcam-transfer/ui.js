@@ -15,6 +15,7 @@
  * =============================================================================
  */
 import * as tf from '@tensorflow/tfjs';
+import moment from 'moment'
 
 const CONTROLS = ['up', 'down', 'left', 'right'];
 const CONTROL_CODES = [38, 40, 37, 39];
@@ -34,6 +35,25 @@ export const getBatchSizeFraction = () => 0.4;
 
 export const getEpochs = () => 20;
 
+export const setTimer = (time) => {document.getElementById("timer").innerHTML = time};
+
+export const getDummyFirstPose = () => 0
+
+var myInterval
+export function startTimer() {
+  var startTimestamp = moment().startOf("day");
+  myInterval = setInterval(function () {
+      setTimer(startTimestamp.format('mm:ss'));
+      startTimestamp.add(1, 'second');
+  }, 1000);
+}
+
+let completed_poses = []
+function resetTimer() {
+  clearInterval(myInterval);
+  startTimer()
+}
+
 export const getDenseUnits = () => 100;
 const statusElement = document.getElementById('status');
 
@@ -41,16 +61,21 @@ export function startPacman() {
   console.log("Starting demo");
   // google.pacman.startGameplay();
 }
-
+let pose = undefined
 export function predictClass(classId) {
   // classId's are 0,1,2,3
-  console.log(CONTROL_CODES[classId]) // Sjoerd
-  console.log(classId)
-  console.log("Class id ", classId)
+
   // google.pacman.keyPressed(CONTROL_CODES[classId]);
 
   // current pose is computed by smoothing past predictions.
-  let pose = processPredictions(classId)
+  let pose_update = processPredictions(classId)
+  if (pose == undefined && pose != pose_update) {
+    resetTimer()
+  }
+  else if (pose != pose_update) {
+    resetTimer()
+  }
+  pose = pose_update
   document.body.setAttribute('data-active', CONTROLS[pose]);
 }
 
@@ -86,14 +111,18 @@ function processPredictions(classId) {
   for (let i = 0; i < counts.length; i++) {
     counts[i] = counts[i] / total_count
   }
-  console.log(last_N_predictions)
-  console.log(counts)
+
+  
   let current_pose = argMax(counts) // Just selects the pose which has been predicted most in last
   // _NUMBER_PREDICTIONS_SAVED frames.
-  console.log("CURRENT POSE")
-  console.log(current_pose)
-  console.log(".........")
-  return current_pose
+
+  if (last_N_predictions.length > _NUMBER_PREDICTIONS_SAVED / 4) {
+    // To only start a pose when a certain amount of time has passed:
+    return current_pose
+  }
+  else {
+    return undefined
+  }
 }
 
 

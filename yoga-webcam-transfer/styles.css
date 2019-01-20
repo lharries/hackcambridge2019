@@ -335,6 +335,8 @@ header b {
 [data-active="right"] .panel-cell-right .thumb-box-outer {
   box-shadow: 0 0 8px 8px #00b700;
 }
+
+
 .thumb-box-inner {
   border: 1px solid #585858;
   border-radius: 4px;

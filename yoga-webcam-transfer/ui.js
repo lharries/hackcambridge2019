@@ -51,10 +51,10 @@ export const setTimer = (time) => {document.getElementById("timer").innerHTML = 
 
 export const getDummyFirstPose = () => 0
 
-export var workoutPoses = ["Warrior 2","Triangle", "Warrior 2", "Warrior 3", "Crescent Lunge"];
+export var workoutPoses = ["Warrior Two","Triangle Pose", "Warrior Two", "Warrior Three", "Crescent Lunge"];
 export var workoutIndices = [3, 2, 3, 1, 0];
 export var workoutTimes = [7, 5, 5, 8, 5];
-export var totalWorkoutTimes = [0, 7, 12, 17, 28];
+export var totalWorkoutTimes = [0, 7, 12, 17, 25];
 
 var myInterval
 var __startTimestamp
@@ -82,6 +82,7 @@ export function startTimer(instructor = false) {
         } else if (progress > 30) {
           document.querySelectorAll("tr").forEach(el => el.style.color = "black");
           document.body.removeAttribute('data-active');
+          setTimer('00:00');
         }
       } else {
           setTimer(__startTimestamp.format('mm:ss'));
@@ -89,6 +90,13 @@ export function startTimer(instructor = false) {
         }
 
   }, 1000);
+}
+
+export function stopTimer(){
+  clearInterval(myInterval);
+  setTimer('00:00');
+  document.body.removeAttribute('data-active');
+  document.querySelectorAll("tr").forEach(el => el.style.color = "black");
 }
 
 

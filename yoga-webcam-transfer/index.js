@@ -186,6 +186,8 @@ document.getElementById("mode").addEventListener("change", () =>modeChange());
 function modeChange() {
   mode = document.getElementById("mode").value;
   console.log(mode);
+  isPredicting = false;
+  ui.stopTimer()
   if (mode =='custom') {
     ui.clearThumb(0);
     ui.clearThumb(1);
@@ -194,6 +196,8 @@ function modeChange() {
     document.querySelectorAll('.custommode').forEach(element => element.style.display = "unset");
     document.querySelectorAll('.instructor').forEach(element => element.style.display = "none");
   } else {
+    isPredicting = false;
+    ui.stopTimer()
     setupImages();
     document.querySelectorAll('.custommode').forEach(element => element.style.display = "none");
     document.querySelectorAll('.instructor').forEach(element => element.style.display = "unset");

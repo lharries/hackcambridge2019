@@ -168,9 +168,17 @@ document.getElementById('train').addEventListener('click', async () => {
 document.getElementById('predict').addEventListener('click', () => {
   // ui.startPacman();
   isPredicting = true;
-  predict();
+  if (mode == 'instructor') {
+    startSequence(ui.workoutTimes);
+  } else {
+    predict();
+  }
 });
 let mode = "instructor";
+
+function startSequence(workoutTimes) {
+  ui.highlightWorkouts()
+}
 
 
 document.getElementById("mode").addEventListener("change", () =>modeChange());
@@ -200,16 +208,11 @@ function setupImages() {
   ui.drawThumb("warrior_three.jpg", 1, true);
 }
 
-var workoutPoses = ["Warrior 2","Triangle", "Warrior 2", "Warrior 3", "Crescent Lunge"];
-var workoutIndices = [2, 1, 2, 3, 0];
-var workoutTimes = [6, 4, 3, 5, 4];
-
 function setupWorkout(workoutPoses, workoutTimes) {
 
   var num_workouts = workoutPoses.length;
   for (var i = 0; i < num_workouts; i++) {
       var pose = workoutPoses[i];
-      var poseIdx = workoutIndices[i];
       var poseTime = workoutTimes[i];
       ui.addRowResultsTable(pose, poseTime, true)
   }
@@ -229,7 +232,7 @@ async function init() {
   tf.tidy(() => truncatedMobileNet.predict(webcam.capture()));
 
   setupImages();
-  setupWorkout(workoutPoses, workoutTimes);
+  setupWorkout(ui.workoutPoses, ui.workoutTimes);
 
   ui.init();
 }

@@ -53,8 +53,8 @@ export const getDummyFirstPose = () => 0
 
 export var workoutPoses = ["Warrior 2","Triangle", "Warrior 2", "Warrior 3", "Crescent Lunge"];
 export var workoutIndices = [3, 2, 3, 1, 0];
-export var workoutTimes = [5, 5, 3, 5, 4];
-export var totalWorkoutTimes = [5, 10, 13, 18, 22];
+export var workoutTimes = [7, 5, 5, 8, 5];
+export var totalWorkoutTimes = [0, 7, 12, 17, 28];
 
 var myInterval
 var __startTimestamp
@@ -69,19 +69,24 @@ export function startTimer(instructor = false) {
     document.body.setAttribute('data-active', CONTROLS[workoutIndices[currentPose]]);
   }
   myInterval = setInterval(function () {
-      setTimer(__startTimestamp.format('mm:ss'));
-      __startTimestamp.add(1, 'second');
       if (instructor){
         setTimer(__poseProgress.format('mm:ss'));
         __poseProgress.add(1, 'second');
         var progress = parseInt(__poseProgress.format('ss'));
         if (currentPose < 5 && progress > totalWorkoutTimes[currentPose]){
+          // console.log(totalWorkoutTimes[currentPose])
           document.querySelectorAll("tr").forEach(el => el.style.color = "black");
           document.querySelectorAll("tr")[currentPose +1].style.color = "green";
           document.body.setAttribute('data-active', CONTROLS[workoutIndices[currentPose]]);
           currentPose += 1;
+        } else if (progress > 30) {
+          document.querySelectorAll("tr").forEach(el => el.style.color = "black");
+          document.body.removeAttribute('data-active');
         }
-      }
+      } else {
+          setTimer(__startTimestamp.format('mm:ss'));
+        __startTimestamp.add(1, 'second');
+        }
 
   }, 1000);
 }

@@ -194,8 +194,7 @@ function modeChange() {
     document.querySelectorAll('.custommode').forEach(element => element.style.display = "unset");
     document.querySelectorAll('.instructor').forEach(element => element.style.display = "none");
   } else {
-    var image = new Image();
-    setupImages()
+    setupImages();
     document.querySelectorAll('.custommode').forEach(element => element.style.display = "none");
     document.querySelectorAll('.instructor').forEach(element => element.style.display = "unset");
   }
@@ -207,6 +206,8 @@ function setupImages() {
   ui.drawThumb("warrior_two.jpg", 3, true);
   ui.drawThumb("warrior_three.jpg", 1, true);
 }
+
+
 
 function setupWorkout(workoutPoses, workoutTimes) {
 
@@ -231,10 +232,12 @@ async function init() {
   // quick.
   tf.tidy(() => truncatedMobileNet.predict(webcam.capture()));
 
-  setupImages();
+  
   setupWorkout(ui.workoutPoses, ui.workoutTimes);
 
+
   ui.init();
+  setupImages();
 }
 
 // Initialize the application.

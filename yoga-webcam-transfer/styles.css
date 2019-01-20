@@ -49,6 +49,18 @@ header b {
   font-weight: 400;
 }
 
+.mode {
+  margin-top: 40px;
+}
+
+#timer {
+  position: absolute;
+  left: 56%;
+  top: 20%;
+  text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+  color: white;
+}
+
 .custommode {
   display: none;
 }

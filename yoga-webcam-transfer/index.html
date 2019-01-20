@@ -52,13 +52,12 @@ limitations under the License.
             <option value="custom">Custom</option>
         </select>
         <div class="instructor">
-        <h3>Points</h3>
-        <h4 id="points">0</h4>
+        <h4 id="points"><span style="font-size: 40px;">💰</span>Points:<span class="points">0</span></h4>
+
 
         </div>
-        <h3>Time</h3>
-        <h4 id="timer">00:00</h4>
-        <h3>Controls</h3>
+
+        <!--<h3>Controls</h3>-->
         <div class="panel-row big-buttons">
             <div class="custommode">
 
@@ -157,9 +156,12 @@ limitations under the License.
                             <button class="record-button" id="up"/>
                             <span>Add Sample</span></button>
                         </div>
-                        <p>
+                        <p class="custommode">
                             <span id="up-total">0</span> examples
                         </p>
+                        <h5 class="instructor">
+                            Crescent Lunge
+                        </h5>
                     </div>
                 </div><!-- ./panel-cell -->
 
@@ -177,9 +179,12 @@ limitations under the License.
                             <button class="record-button" id="left"/>
                             <span>Add Sample</span></button>
                         </div>
-                        <p>
+                        <p class="custommode">
                             <span id="left-total">0</span> examples
                         </p>
+                        <h5 class="instructor">
+                            Triangle Pose
+                        </h5>
                     </div>
                 </div><!-- ./panel-cell -->
             </div>
@@ -195,9 +200,12 @@ limitations under the License.
                             <button class="record-button" id="right"/>
                             <span>Add Sample</span></button>
                         </div>
-                        <p>
+                        <p class="custommode">
                             <span id="right-total">0</span> examples
                         </p>
+                        <h5 class="instructor">
+                            Warrior Two
+                        </h5>
                     </div>
                 </div><!-- ./panel-cell -->
 
@@ -214,9 +222,12 @@ limitations under the License.
                             <button class="record-button" id="down"/>
                             <span>Add Sample</span></button>
                         </div>
-                        <p>
+                        <p class="custommode">
                             <span id="down-total">0</span> examples
                         </p>
+                        <h5 class="instructor">
+                            Warrior Three
+                        </h5>
                     </div>
                 </div><!-- ./panel-cell -->
 
@@ -230,6 +241,7 @@ limitations under the License.
 
     </div><!-- /#controller -->
     <div class="luke-panel">
+        <h4 id="timer">00:00</h4>
         <div class="instructor">
             <h3>
                 Workout

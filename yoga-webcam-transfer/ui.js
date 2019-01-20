@@ -29,7 +29,7 @@ const _PREDICT_THRESHOLD = 0.7 // Treshold between 0.0 and 1 for predicting a po
 // in the _NUMBER_PREDICTIONS_SAVED last frames, more than threshold of the frames was classified
 // as a certain pose. That pose is assumed to be the curren pose. If no pose reaches the threshold
 // the pose is undefined. Tune this parameter to make the model more or less uncertain.
-const _MINIMUM_SECONDS_POSEHOLD = 2 // The minimum number a pose needs to be hold before it
+const _MINIMUM_SECONDS_POSEHOLD = 1 // The minimum number a pose needs to be hold before it
 //is added to the result list. 
 
 export function init() {

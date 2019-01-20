@@ -20,7 +20,8 @@ import * as tf from '@tensorflow/tfjs';
 import {ControllerDataset} from './controller_dataset';
 import * as ui from './ui';
 import {Webcam} from './webcam';
-
+import * as poseData from './data';
+var fs = require('fs');
 
 
 // The number of classes we want to predict. In this example, we will be
@@ -123,13 +124,44 @@ async function train() {
         ui.trainStatus('Loss: ' + logs.loss.toFixed(5));
       }
     }
-  });
+  }).then(() => {
+
+    // model.setWeights(JSON.parse(JSON.stringify(model.getWeights())))
+  })
 }
 
 let isPredicting = false;
 
 async function predict() {
   // runs when you click play§
+
+  model = tf.sequential({
+    layers: [
+      // Flattens the input to a vector so we can use it in a dense layer. While
+      // technically a layer, this only performs a reshape (and has no training
+      // parameters).
+      tf.layers.flatten({
+        inputShape: truncatedMobileNet.outputs[0].shape.slice(1)
+      }),
+      // Layer 1.
+      tf.layers.dense({
+        units: ui.getDenseUnits(),
+        activation: 'relu',
+        kernelInitializer: 'varianceScaling',
+        useBias: true
+      }),
+      // Layer 2. The number of units of the last layer should correspond
+      // to the number of classes we want to predict.
+      tf.layers.dense({
+        units: NUM_CLASSES,
+        kernelInitializer: 'varianceScaling',
+        useBias: false,
+        activation: 'softmax'
+      })
+    ]
+  });
+
+  debugger;
 
   ui.isPredicting();
   while (isPredicting) {
@@ -187,7 +219,6 @@ function modeChange() {
     document.querySelectorAll('.custommode').forEach(element => element.style.display = "unset");
     document.querySelectorAll('.instructor').forEach(element => element.style.display = "none");
   } else {
-    var image = new Image();
     setupImages()
     document.querySelectorAll('.custommode').forEach(element => element.style.display = "none");
     document.querySelectorAll('.instructor').forEach(element => element.style.display = "unset");
@@ -216,6 +247,34 @@ function setupWorkout(workoutPoses, workoutTimes) {
   }
 }
 
+function addCustomImageToBatch(url, label) {
+  var image = ui.loadImageData(url)
+  controllerDataset.addExample(truncatedMobileNet.predict(ui.cropImageData(image)), label);
+}
+
+function addImagesToBatch() {
+  for (let i = 0; i < poseData.crescent_lunge.length; i += 1) {
+    addCustomImageToBatch(poseData.crescent_lunge[i], 0)
+  }
+  console.log('cresent lung')
+
+  for (let i = 0; i < poseData.triangle_pose.length; i += 1) {
+    addCustomImageToBatch(poseData.triangle_pose[i], 0)
+  }
+  console.log('cresent lung')
+
+  for (let i = 0; i < poseData.warrior_2.length; i += 1) {
+    addCustomImageToBatch(poseData.warrior_2[i], 0)
+  }
+  console.log('cresent lung')
+
+  for (let i = 0; i < poseData.warrior_3.length; i += 1) {
+    addCustomImageToBatch(poseData.warrior_3[i], 0)
+  }
+  console.log('cresent lung')
+  console.log('cresent lung')
+}
+
 async function init() {
   try {
     await webcam.setup();
@@ -229,20 +288,17 @@ async function init() {
   // quick.
   tf.tidy(() => truncatedMobileNet.predict(webcam.capture()));
 
+  // var x = await tf.loadModel('pose_data_model.json');
+
   setupImages();
   setupWorkout(workoutPoses, workoutTimes);
 
   ui.init();
+  // model = tf.loadModel('pose_data_model.json').then(() => console.log('model loaded'));
 
-  var image = ui.loadImageData("tfpose.jpg")
-  controllerDataset.addExample(truncatedMobileNet.predict(ui.cropImageData(image)), 0);
-  controllerDataset.addExample(truncatedMobileNet.predict(ui.cropImageData(image)), 0);
-  controllerDataset.addExample(truncatedMobileNet.predict(ui.cropImageData(image)), 0);
-  controllerDataset.addExample(truncatedMobileNet.predict(ui.cropImageData(image)), 0);
-  controllerDataset.addExample(truncatedMobileNet.predict(ui.cropImageData(image)), 0);
-  controllerDataset.addExample(truncatedMobileNet.predict(ui.cropImageData(image)), 0);
-  console.log(controllerDataset)
-  debugger;
+  console.log('adding images to batch')
+  addImagesToBatch();
+  // console.log('added images')
   // Draw the preview thumbnail.
   // ui.drawThumb(image, 0);
 

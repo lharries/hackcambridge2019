@@ -56,6 +56,8 @@ export var workoutIndices = [3, 2, 3, 1, 0];
 export var workoutTimes = [7, 5, 5, 8, 5];
 export var totalWorkoutTimes = [0, 7, 12, 17, 25];
 
+export var truePoseIndices = [2,1,2,3,0];
+
 var myInterval
 var __startTimestamp
 var __poseProgress
@@ -78,6 +80,8 @@ export function startTimer(instructor = false) {
           document.querySelectorAll("tr").forEach(el => el.style.color = "black");
           document.querySelectorAll("tr")[currentPose +1].style.color = "green";
           document.body.setAttribute('data-active', CONTROLS[workoutIndices[currentPose]]);
+
+          // get prediction and compare with true pose, if true then accumulate points
           currentPose += 1;
         } else if (progress > 30) {
           document.querySelectorAll("tr").forEach(el => el.style.color = "black");

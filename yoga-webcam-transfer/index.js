@@ -179,16 +179,39 @@ function modeChange() {
   mode = document.getElementById("mode").value;
   console.log(mode);
   if (mode =='custom') {
+    ui.clearThumb(0);
+    ui.clearThumb(1);
+    ui.clearThumb(2);
+    ui.clearThumb(3);
     document.querySelectorAll('.custommode').forEach(element => element.style.display = "unset");
     document.querySelectorAll('.instructor').forEach(element => element.style.display = "none");
   } else {
     var image = new Image();
-    // ui.drawThumb("Collage_of_Nine_Dogs.jpg", 0, true);
-    ui.drawThumb("Collage_of_Nine_Dogs.jpg", 2, true);
-    // ui.drawThumb("Collage_of_Nine_Dogs.jpg", 3, true);
-    // ui.drawThumb("Collage_of_Nine_Dogs.jpg", 1, true);
+    setupImages()
     document.querySelectorAll('.custommode').forEach(element => element.style.display = "none");
     document.querySelectorAll('.instructor').forEach(element => element.style.display = "unset");
+  }
+}
+
+function setupImages() {
+  ui.drawThumb("crescent_lunge.jpg", 0, true);
+  ui.drawThumb("triangle_pose.jpg", 2, true);
+  ui.drawThumb("warrior_two.jpg", 3, true);
+  ui.drawThumb("warrior_three.jpg", 1, true);
+}
+
+var workoutPoses = ["Warrior 2","Triangle", "Warrior 2", "Warrior 3", "Crescent Lunge"];
+var workoutIndices = [2, 1, 2, 3, 0];
+var workoutTimes = [6, 4, 3, 5, 4];
+
+function setupWorkout(workoutPoses, workoutTimes) {
+
+  var num_workouts = workoutPoses.length;
+  for (var i = 0; i < num_workouts; i++) {
+      var pose = workoutPoses[i];
+      var poseIdx = workoutIndices[i];
+      var poseTime = workoutTimes[i];
+      ui.addRowResultsTable(pose, poseTime, true)
   }
 }
 
@@ -204,6 +227,9 @@ async function init() {
   // programs so the first time we collect data from the webcam it will be
   // quick.
   tf.tidy(() => truncatedMobileNet.predict(webcam.capture()));
+
+  setupImages();
+  setupWorkout(workoutPoses, workoutTimes);
 
   ui.init();
 }

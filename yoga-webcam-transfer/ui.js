@@ -266,11 +266,16 @@ function loadImage(url, canvas) {
   img.src = url
 }
 
-export function loadUrl() {
+
+export function loadImageData() {
+  var canvas = document.getElementById("sketchpad")
+  var ctx = canvas.getContext("2d");
+  return ctx.getImageData(0,0,224,224)
+}
+export function cropImageData(imageData) {
   return tf.tidy(() => {
-    var canvas = document.getElementById("sketchpad")
-    var ctx = canvas.getContext("2d");
-    var pixels = tf.fromPixels(ctx.getImageData(0,0,224,224));
+
+    var pixels = tf.fromPixels(imageData);
 
     // Reads the image as a Tensor from the webcam <video> element.
     // const webcamImage = tf.fromPixels(pixels);

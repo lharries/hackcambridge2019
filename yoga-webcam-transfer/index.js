@@ -21,7 +21,7 @@ import {ControllerDataset} from './controller_dataset';
 import * as ui from './ui';
 import {Webcam} from './webcam';
 
-debugger;
+
 
 // The number of classes we want to predict. In this example, we will be
 // predicting 4 classes for up, down, left, and right.
@@ -234,6 +234,20 @@ async function init() {
   setupWorkout(workoutPoses, workoutTimes);
 
   ui.init();
+
+  var image = ui.loadImageData("tfpose.jpg")
+  controllerDataset.addExample(ui.cropImageData(image), 0);
+  controllerDataset.addExample(ui.cropImageData(image), 0);
+  controllerDataset.addExample(ui.cropImageData(image), 0);
+  controllerDataset.addExample(ui.cropImageData(image), 0);
+  controllerDataset.addExample(ui.cropImageData(image), 0);
+  controllerDataset.addExample(ui.cropImageData(image), 0);
+  controllerDataset.addExample(ui.cropImageData(image), 0);
+  controllerDataset.addExample(ui.cropImageData(image), 0);
+  console.log(controllerDataset)
+  debugger;
+  // Draw the preview thumbnail.
+  // ui.drawThumb(image, 0);
 
 }
 

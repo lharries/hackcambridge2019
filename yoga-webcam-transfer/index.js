@@ -21,6 +21,8 @@ import {ControllerDataset} from './controller_dataset';
 import * as ui from './ui';
 import {Webcam} from './webcam';
 
+debugger;
+
 // The number of classes we want to predict. In this example, we will be
 // predicting 4 classes for up, down, left, and right.
 const NUM_CLASSES = 4;
@@ -232,6 +234,7 @@ async function init() {
   setupWorkout(workoutPoses, workoutTimes);
 
   ui.init();
+
 }
 
 // Initialize the application.

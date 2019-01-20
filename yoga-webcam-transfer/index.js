@@ -54,7 +54,6 @@ ui.setExampleHandler(label => {
   tf.tidy(() => {
     const img = webcam.capture();
     controllerDataset.addExample(truncatedMobileNet.predict(img), label);
-
     // Draw the preview thumbnail.
     ui.drawThumb(img, label);
   });
@@ -236,14 +235,12 @@ async function init() {
   ui.init();
 
   var image = ui.loadImageData("tfpose.jpg")
-  controllerDataset.addExample(ui.cropImageData(image), 0);
-  controllerDataset.addExample(ui.cropImageData(image), 0);
-  controllerDataset.addExample(ui.cropImageData(image), 0);
-  controllerDataset.addExample(ui.cropImageData(image), 0);
-  controllerDataset.addExample(ui.cropImageData(image), 0);
-  controllerDataset.addExample(ui.cropImageData(image), 0);
-  controllerDataset.addExample(ui.cropImageData(image), 0);
-  controllerDataset.addExample(ui.cropImageData(image), 0);
+  controllerDataset.addExample(truncatedMobileNet.predict(ui.cropImageData(image)), 0);
+  controllerDataset.addExample(truncatedMobileNet.predict(ui.cropImageData(image)), 0);
+  controllerDataset.addExample(truncatedMobileNet.predict(ui.cropImageData(image)), 0);
+  controllerDataset.addExample(truncatedMobileNet.predict(ui.cropImageData(image)), 0);
+  controllerDataset.addExample(truncatedMobileNet.predict(ui.cropImageData(image)), 0);
+  controllerDataset.addExample(truncatedMobileNet.predict(ui.cropImageData(image)), 0);
   console.log(controllerDataset)
   debugger;
   // Draw the preview thumbnail.

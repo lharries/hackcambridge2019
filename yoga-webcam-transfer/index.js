@@ -32,6 +32,7 @@ const webcam = new Webcam(document.getElementById('webcam'));
 const controllerDataset = new ControllerDataset(NUM_CLASSES);
 
 let truncatedMobileNet;
+let trainedMobileNet;
 let model;
 
 // Loads mobilenet and returns a model that returns the internal activation
@@ -43,6 +44,16 @@ async function loadTruncatedMobileNet() {
   // Return a model that outputs an internal activation.
   const layer = mobilenet.getLayer('conv_pw_13_relu');
   return tf.model({inputs: mobilenet.inputs, outputs: layer.output});
+}
+
+// Loads pretrained mobilenet and returns a model that returns the internal activation
+// we'll use as input to our classifier model.
+async function loadTrainedMobileNet() {
+  const trainedmobilenet = await tf.loadModel(
+      'yoga_instructor/model.json');
+
+  // const layer = mobilenet.getLayer('dense_2');
+  return tf.model({inputs: trainedmobilenet.inputs, outputs: trainedmobilenet.outputs});
 }
 
 // When the UI buttons are pressed, read a frame from the webcam and associate
@@ -136,13 +147,21 @@ async function predict() {
       // Capture the frame from the webcam.
       const img = webcam.capture();
 
-      // Make a prediction through mobilenet, getting the internal activation of
-      // the mobilenet model, i.e., "embeddings" of the input images.
-      const embeddings = truncatedMobileNet.predict(img);
+      if (mode == 'instructor') {
 
-      // Make a prediction through our newly-trained model using the embeddings
-      // from mobilenet as input.
-      const predictions = model.predict(embeddings);
+        const predictions = trainedMobileNet.predict(img)
+
+      } else {
+        
+        // Make a prediction through mobilenet, getting the internal activation of
+        // the mobilenet model, i.e., "embeddings" of the input images.
+        const embeddings = truncatedMobileNet.predict(img);
+
+        // Make a prediction through our newly-trained model using the embeddings
+        // from mobilenet as input.
+        const predictions = model.predict(embeddings);
+
+      }
 
       // Returns the index with the maximum probability. This number corresponds
       // to the class the model thinks is the most probable given the input.
@@ -230,6 +249,7 @@ async function init() {
     document.getElementById('no-webcam').style.display = 'block';
   }
   truncatedMobileNet = await loadTruncatedMobileNet();
+  trainedMobileNet = await loadTrainedMobileNet();
 
   // Warm up the model. This uploads weights to the GPU and compiles the WebGL
   // programs so the first time we collect data from the webcam it will be

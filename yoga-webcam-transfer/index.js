@@ -136,6 +136,18 @@ async function train() {
   });
 }
 
+function convertId(Id) {
+  if (Id == 1) {
+    return 2;
+  } else if (Id == 2) {
+    return 3;
+  } else if (Id == 3) {
+    return 1;
+  } else {
+    return Id;
+  }
+}
+
 let isPredicting = false;
 
 async function predict() {
@@ -149,7 +161,9 @@ async function predict() {
 
       if (mode == 'instructor') {
 
-        const predictions = trainedMobileNet.predict(img)
+        const pose = trainedMobileNet.predict(img);
+
+        return pose.as1D().argMax();
 
       } else {
         
@@ -161,14 +175,15 @@ async function predict() {
         // from mobilenet as input.
         const predictions = model.predict(embeddings);
 
+        return predictions.as1D().argMax();
+
       }
 
       // Returns the index with the maximum probability. This number corresponds
       // to the class the model thinks is the most probable given the input.
-      return predictions.as1D().argMax();
     });
 
-    const classId = (await predictedClass.data())[0];
+    const classId = convertId((await predictedClass.data())[0]);
     predictedClass.dispose();
 
     ui.predictClass(classId);
@@ -188,7 +203,8 @@ document.getElementById('predict').addEventListener('click', () => {
   // ui.startPacman();
   isPredicting = true;
   if (mode == 'instructor') {
-    startSequence(ui.workoutTimes);
+    predict();
+    // startSequence(ui.workoutTimes);
   } else {
     predict();
   }

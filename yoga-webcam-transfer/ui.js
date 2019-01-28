@@ -70,6 +70,7 @@ export function startTimer(instructor = false) {
     document.querySelectorAll("tr")[currentPose +1].style.color = "green";
     document.body.setAttribute('data-active', CONTROLS[workoutIndices[currentPose]]);
   }
+  // set interval runs the first argument every 1000ms (i.e., second)
   myInterval = setInterval(function () {
       if (instructor){
         setTimer(__poseProgress.format('mm:ss'));

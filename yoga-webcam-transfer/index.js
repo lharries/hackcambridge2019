@@ -203,15 +203,22 @@ document.getElementById('predict').addEventListener('click', () => {
   // ui.startPacman();
   isPredicting = true;
   if (mode == 'instructor') {
-    predict();
-    // startSequence(ui.workoutTimes);
+    // predict();
+    startSequence();
   } else {
     predict();
   }
 });
+document.getElementById('stop').addEventListener('click', () => {
+  // ui.startPacman();
+  if (isPredicting) {
+    ui.stopTimer()
+  }
+});
+
 let mode = "instructor";
 
-function startSequence(workoutTimes) {
+function startSequence() {
   ui.highlightWorkouts()
 }
 

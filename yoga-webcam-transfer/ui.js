@@ -61,42 +61,46 @@ export var truePoseIndices = [2,1,2,3,0];
 var myInterval
 var __startTimestamp
 var __poseProgress
+var timerActive = false
 
 export function startTimer(instructor = false) {
-  __startTimestamp = moment().startOf("day");
-  if (instructor){
-    __poseProgress = moment().startOf("day");
-    var currentPose = 0;
-    document.querySelectorAll("tr")[currentPose +1].style.color = "green";
-    document.body.setAttribute('data-active', CONTROLS[workoutIndices[currentPose]]);
+  if (timerActive == false) {
+    timerActive = true
+    __startTimestamp = moment().startOf("day");
+    if (instructor){
+      __poseProgress = moment().startOf("day");
+      var currentPose = 0;
+      document.querySelectorAll("tr")[currentPose +1].style.color = "green";
+      document.body.setAttribute('data-active', CONTROLS[workoutIndices[currentPose]]);
+    }
+    // set interval runs the first argument every 1000ms (i.e., second)
+    myInterval = setInterval(function () {
+        if (instructor){
+          setTimer(__poseProgress.format('mm:ss'));
+          __poseProgress.add(1, 'second');
+          var progress = parseInt(__poseProgress.format('ss'));
+          if (currentPose < 5 && progress > totalWorkoutTimes[currentPose]){
+            // console.log(totalWorkoutTimes[currentPose])
+            document.querySelectorAll("tr").forEach(el => el.style.color = "black");
+            document.querySelectorAll("tr")[currentPose +1].style.color = "green";
+            document.body.setAttribute('data-active', CONTROLS[workoutIndices[currentPose]]);
+
+            // get prediction and compare with true pose, if true then accumulate points
+            currentPose += 1;
+          } else if (progress > 30) {
+            stopTimer()
+          }
+        } else {
+            setTimer(__startTimestamp.format('mm:ss'));
+          __startTimestamp.add(1, 'second');
+          }
+
+    }, 1000);
   }
-  // set interval runs the first argument every 1000ms (i.e., second)
-  myInterval = setInterval(function () {
-      if (instructor){
-        setTimer(__poseProgress.format('mm:ss'));
-        __poseProgress.add(1, 'second');
-        var progress = parseInt(__poseProgress.format('ss'));
-        if (currentPose < 5 && progress > totalWorkoutTimes[currentPose]){
-          // console.log(totalWorkoutTimes[currentPose])
-          document.querySelectorAll("tr").forEach(el => el.style.color = "black");
-          document.querySelectorAll("tr")[currentPose +1].style.color = "green";
-          document.body.setAttribute('data-active', CONTROLS[workoutIndices[currentPose]]);
-
-          // get prediction and compare with true pose, if true then accumulate points
-          currentPose += 1;
-        } else if (progress > 30) {
-          clearInterval(myInterval)
-          stopTimer()
-        }
-      } else {
-          setTimer(__startTimestamp.format('mm:ss'));
-        __startTimestamp.add(1, 'second');
-        }
-
-  }, 1000);
 }
 
 export function stopTimer(){
+  timerActive = false
   clearInterval(myInterval);
   setTimer('00:00');
   document.body.removeAttribute('data-active');

@@ -85,9 +85,8 @@ export function startTimer(instructor = false) {
           // get prediction and compare with true pose, if true then accumulate points
           currentPose += 1;
         } else if (progress > 30) {
-          document.querySelectorAll("tr").forEach(el => el.style.color = "black");
-          document.body.removeAttribute('data-active');
-          setTimer('00:00');
+          clearInterval(myInterval)
+          stopTimer()
         }
       } else {
           setTimer(__startTimestamp.format('mm:ss'));

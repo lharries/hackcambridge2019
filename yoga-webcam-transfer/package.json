@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "@tensorflow/tfjs": "^0.14.2",
-    "moment": "^2.23.0",
+    "moment": "^2.29.2",
     "vega-embed": "^3.0.0"
   },
   "scripts": {
